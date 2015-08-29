@@ -26,13 +26,20 @@ knex.from('bmi_master').then(function(bmiRows) {
     async.waterfall([
       function findDupes(waterfallCb) {
         //find all the matching rows based on the agency_name, main_email, or agency_website
-        knex
+        var lookupObj = knex
           .from('bmi_master')
           .where('agency_name', bmiRow.agency_name)
-          .orWhere('main_email', bmiRow.main_email)
-          .orWhere('agency_website', bmiRow.agency_website)
           .andWhere('id', '!=', bmiRow.id)
-          .then(function(dupes) {
+
+        if (bmiRow.main_email) {
+          lookupObj.orWhere('main_email', bmiRow.main_email)
+        }
+          
+        if (bmiRow.agency_website) {
+          lookupObj.orWhere('agency_website', bmiRow.agency_website)
+        }
+          
+        lookupObj.then(function(dupes) {
 
             if (dupes.length) {
               //store the list of id's that matched (so we can skip them later)
@@ -65,14 +72,27 @@ knex.from('bmi_master').then(function(bmiRows) {
                 function insertIntoCompanyLocale(parallelCb) {
 
                   async.eachSeries(dupes, function(dupe, eachSeries) {
-                    knex
+                    var lookupObj = knex
                       .from('company_locale')
                       .where('company_id', companyId)
-                      .andWhere('market', dupe.market)
-                      .andWhere('country', dupe.country)
-                      .andWhere('city', dupe.city)
-                      .andWhere('region', dupe.region)
-                      .then(function(companyLocalDupes) {
+
+                    if (dupe.market) {
+                      lookupObj.andWhere('market', dupe.market)
+                    }
+                      
+                    if (dupe.country) {
+                      lookupObj.andWhere('country', dupe.country)
+                    }
+                      
+                    if (dupe.city) {
+                      lookupObj.andWhere('city', dupe.city)
+                    }
+                      
+                    if (dupe.region) {
+                      lookupObj.andWhere('region', dupe.region)
+                    }
+
+                    lookupObj.then(function(companyLocalDupes) {
                         //if there are no company local dupes, then lets go ahead and add
                         if (companyLocalDupes.length) {
                           return eachSeries()
@@ -101,13 +121,23 @@ knex.from('bmi_master').then(function(bmiRows) {
 
                   async.eachSeries(dupes, function(dupe, eachSeries) {
 
-                    knex
+                    var lookupObj = knex
                       .from('company_contact')
                       .where('company_id', companyId)
-                      .andWhere('email', dupe.main_email)
-                      .orWhere('email', dupe.second_contact_email)
-                      .orWhere('email', dupe.tertiary_email)
-                      .then(function(companyContactDupes) {
+
+                    if (dupe.main_email) {
+                      lookupObj.andWhere('email', dupe.main_email)
+                    }
+                      
+                    if (dupe.second_contact_email) {
+                      lookupObj.orWhere('email', dupe.second_contact_email)
+                    }
+                      
+                    if (dupe.tertiary_email) {
+                      lookupObj.orWhere('email', dupe.tertiary_email)
+                    }
+
+                    lookupObj.then(function(companyContactDupes) {
                         if (companyContactDupes.length) {
                           return eachSeries()
                         } else {

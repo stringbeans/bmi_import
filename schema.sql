@@ -1,0 +1,101 @@
+CREATE TABLE `bmi_master` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `agency_name` varchar(255) DEFAULT NULL,
+  `market` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  `mf` varchar(255) DEFAULT NULL,
+  `sf` varchar(255) DEFAULT NULL,
+  `agency_phone_number` varchar(255) DEFAULT NULL,
+  `main_contact` varchar(255) DEFAULT NULL,
+  `main_last_name` varchar(255) DEFAULT NULL,
+  `main_email` varchar(255) DEFAULT NULL,
+  `main_role` varchar(255) DEFAULT NULL,
+  `main_Phone` varchar(255) DEFAULT NULL,
+  `second_contact_full_name` varchar(255) DEFAULT NULL,
+  `second_last_name` varchar(255) DEFAULT NULL,
+  `second_contact_email` varchar(255) DEFAULT NULL,
+  `second_role` varchar(255) DEFAULT NULL,
+  `second_phone` varchar(255) DEFAULT NULL,
+  `tertiary_name` varchar(255) DEFAULT NULL,
+  `tertiary_last_name` varchar(255) DEFAULT NULL,
+  `tertiary_email` varchar(255) DEFAULT NULL,
+  `tertiary_role` varchar(255) DEFAULT NULL,
+  `tertiary_phone` varchar(255) DEFAULT NULL,
+  `agency_website` varchar(255) DEFAULT NULL,
+  `website_email` varchar(255) DEFAULT NULL,
+  `company_street_address` varchar(255) DEFAULT NULL,
+  `fax_number` varchar(255) DEFAULT NULL,
+  `associations` varchar(255) DEFAULT NULL,
+  `number_of_offices` varchar(255) DEFAULT NULL,
+  `number_of_staff` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `agencies_global_master` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `other_name` varchar(255) DEFAULT NULL,
+  `market` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  `marketing_funnel_status` varchar(255) DEFAULT NULL,
+  `sales_funnel_status` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(255) DEFAULT NULL,
+  `main_contact` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `secondary_contact` varchar(255) DEFAULT NULL,
+  `secondary_last_name` varchar(255) DEFAULT NULL,
+  `secondary_email` varchar(255) DEFAULT NULL,
+  `secondary_role` varchar(255) DEFAULT NULL,
+  `tertiary_contact` varchar(255) DEFAULT NULL,
+  `tertiary_last_name` varchar(255) DEFAULT NULL,
+  `tertiary_email` varchar(255) DEFAULT NULL,
+  `tertiary_role` varchar(255) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `company_street_address` varchar(255) DEFAULT NULL,
+  `associations` varchar(255) DEFAULT NULL,
+  `number_of_offices` varchar(255) DEFAULT NULL,
+  `number_of_staff` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `company` (
+  `company_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `agency_website` varchar(255) DEFAULT NULL,
+  `website_email` varchar(255) DEFAULT NULL,
+  `associations` varchar(255) DEFAULT NULL,
+  `number_of_offices` varchar(255) DEFAULT NULL,
+  `number_of_staff` varchar(255) DEFAULT NULL,
+PRIMARY KEY (`company_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `company_locale` (
+  `company_locale_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) unsigned NOT NULL,
+  `market` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(255) DEFAULT NULL,
+  `company_street_address` varchar(255) DEFAULT NULL,
+  `fax_number` varchar(255) DEFAULT NULL,
+PRIMARY KEY (`company_locale_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `company_contact` (
+  `company_contact_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) unsigned NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+PRIMARY KEY (`company_contact_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
