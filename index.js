@@ -104,7 +104,7 @@ knex.from('bmi_master').then(function(bmiRows) {
                               country: dupe.country,
                               city: dupe.city,
                               region: dupe.region,
-                              phone_number: dupe.phone_number,
+                              phone_number: dupe.agency_phone_number,
                               company_street_address: dupe.company_street_address,
                               fax_number: dupe.fax_number
                             })

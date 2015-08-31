@@ -281,6 +281,7 @@ async.series([
                     data.country = companyLocale.country
                     data.city = companyLocale.city
                     data.region = companyLocale.region
+                    data.phone_number = companyLocale.phone_number
                     data.company_street_address = companyLocale.company_street_address
 
                     waterfallCb(null, data)
@@ -296,7 +297,6 @@ async.series([
                     //grab primary contact
                     var primaryContact = _.findWhere(companyContacts, {type: 'Primary'})
                     if (primaryContact) {
-                      data.phone_number = primaryContact.phone
                       data.main_contact = primaryContact.first_name
                       data.last_name = primaryContact.last_name
                       data.email = primaryContact.email
